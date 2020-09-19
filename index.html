@@ -15,13 +15,8 @@
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
         <script src="howler.min.js"></script>
        
-         <script type="text/javascript">
-             
+         
         
-            var sound = new Howl({
-                src:['song.mp3']
-            }).play();
-        </script>
     </head>
     <body>
         
@@ -103,9 +98,10 @@
                 <p>entire cities are powered by <span style="color: aqua;">sound</span></p>
                 <div class="row containerBtn">
 
-		<div class="col-12" id="button-two">
+		<a href="two.html"><div class="col-12" id="button-two">
 			<button id="shareBtn"> Play <i id="plane" class=" plane fas fa-plane"></i></button>
 		</div>
+        </a>
 	</div>
         </div>
       </section>
@@ -122,6 +118,41 @@
       </section>--> 
         
         </div>
+<a href="#" class="speaker mute">
+  <span ></span>
+</a>
+        
+        <script>
+        
+            $(".speaker").click(function(){
+              $(this).toggleClass("mute");
+            });
+            
+           
+
+             
+        </script>
+        <script type="text/javascript">
+             
+        
+            var sound = new Howl({
+                src:['song.mp3']
+            });
+            
+            sound.pause();
+             
+              $('.speaker').click(function(){
+                if (!sound.playing()) {
+                  sound.play();
+
+                }
+                else {
+                  sound.pause();
+                }
+                });
+             
+             
+        </script>
        
   <script>
         
