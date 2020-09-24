@@ -48,7 +48,7 @@ var lastClap = new Date().getTime();
         
 function detectClap(data) {
   var t = new Date().getTime();
-  if (t - lastClap < 1) return true; // TWEAK HERE
+  if (t - lastClap < 500) return true; // TWEAK HERE
   var zeroCrossings = 0,
     highAmp = 0;
   for (var i = 1; i < data.length; i++) {
@@ -72,7 +72,7 @@ var rec = new Recording(function(data) {
     else{
         setTimeout(function () {
       document.getElementById("Layer_3").style.opacity = "0";
-    }, 100);
+    }, 3000);
       
     }
 });
