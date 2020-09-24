@@ -16,6 +16,14 @@ body {
     
 
 }
+.bottom{
+    font-family: 'Nanum Gothic', sans-serif;
+    font-size:0.9rem;
+     position: absolute;
+    right:3%;
+    bottom:12%;
+    border: none;
+}
 .skip{
     font-family: 'Nanum Gothic', sans-serif;
     font-size:1.1rem;
