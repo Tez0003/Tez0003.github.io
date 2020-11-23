@@ -3,80 +3,22 @@
 <head>
     <link rel="stylesheet" href="two.css">
        <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Indie+Flower&family=Josefin+Slab&family=Londrina+Outline&family=Nanum+Gothic&family=Poiret+One&family=Tangerine&display=swap" rel="stylesheet">
+    <script src="lights.js"></script>
     <script >
-    var Recording = function(cb) {
-  var recorder = null;
-  var recording = true;
-  var audioInput = null;
-  var volume = null;
-  var audioContext = null;
-  var callback = cb;
-  navigator.getUserMedia =
-    navigator.getUserMedia ||
-    navigator.webkitGetUserMedia ||
-    navigator.mozGetUserMedia ||
-    navigator.msGetUserMedia;
-  if (navigator.getUserMedia) {
-    navigator.getUserMedia(
-      { audio: true },
-      function(e) {
-        //success
-        var AudioContext = window.AudioContext || window.webkitAudioContext;
-        audioContext = new AudioContext();
-        volume = audioContext.createGain(); // creates a gain node
-        audioInput = audioContext.createMediaStreamSource(e); // creates an audio node from the mic stream
-        audioInput.connect(volume); // connect the stream to the gain node
-        recorder = audioContext.createScriptProcessor(2048, 1, 1);
-        recorder.onaudioprocess = function(e) {
-          if (!recording) return;
-          var left = e.inputBuffer.getChannelData(0);
-          //var right = e.inputBuffer.getChannelData(1);
-          callback(new Float32Array(left));
-        };
-        volume.connect(recorder); // connect the recorder
-        recorder.connect(audioContext.destination);
-      },
-      function(e) {
-        //failure
-        alert("Error capturing audio.");
-      }
-    );
-  } else {
-    alert("getUserMedia not supported in this browser.");
-  }
-};
-var lastClap = new Date().getTime();
-        
-function detectClap(data) {
-  var t = new Date().getTime();
-  if (t - lastClap < 1000)return true; // TWEAK HERE
-  var zeroCrossings = 0,
-    highAmp = 0;
-  for (var i = 1; i < data.length; i++) {
-    if (Math.abs(data[i]) > 0.25) highAmp++; // TWEAK HERE
-    if ((data[i] > 0 && data[i - 1] < 0) || (data[i] < 0 && data[i - 1] > 0))
-      zeroCrossings++;
-  }
-  if (highAmp > 20 && zeroCrossings > 30) {
-    // TWEAK HERE
-    //console.log(highAmp+' / '+zeroCrossings);
-    lastClap = t;
-    return true;
-  }
-  return false;
+   
+
+function removejscssfile(filename, filetype){
+    var targetelement=(filetype=="js")? "script" : (filetype=="css")? "link" : "none" //determine element type to create nodelist from
+    var targetattr=(filetype=="js")? "src" : (filetype=="css")? "href" : "none" //determine corresponding attribute to test for
+    var allsuspects=document.getElementsByTagName(targetelement)
+    for (var i=allsuspects.length; i>=0; i--){ //search backwards within nodelist for matching elements to remove
+    if (allsuspects[i] && allsuspects[i].getAttribute(targetattr)!=null && allsuspects[i].getAttribute(targetattr).indexOf(filename)!=-1)
+        allsuspects[i].parentNode.removeChild(allsuspects[i]) //remove element by calling parentNode.removeChild()
+    }
 }
-        
-var rec = new Recording(function(data) {
-  if (detectClap(data)) {
-    document.getElementById("Layer_3").style.opacity = "1";
-  }
-    else{
-        
-      document.getElementById("Layer_3").style.opacity = "0";
-  
-      
-    }
-});
+ 
+removejscssfile("lights.js", "js") //remove all occurences of "somescript.js" on page
+
 
     
 </script>
@@ -1517,5 +1459,9 @@ var rec = new Recording(function(data) {
 </svg>
 
     </div>
+        <div id="part-2">
+        <p>Thankyou for the participation.</p>
+            <p>You have produced enough energy to lit up 38 lightd for 1 second.</p>
+        </div>
     </body>
 </html>
